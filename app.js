@@ -4,7 +4,6 @@ function header (){
     let header = document.createElement("div");
     header.classList.add("header");
 
-
     let contenedor = document.createElement("div");
     contenedor.classList.add("contenedor");
     header.appendChild(contenedor);
@@ -18,6 +17,9 @@ function header (){
     h1.innerHTML = "UVG Chat";
     barra.appendChild(h1);
 
+    let config = document.createElement("img");
+    config.src="/images/dark-mode.svg";
+    barra.appendChild(config);
 
 
     let body = document.body;
@@ -50,8 +52,13 @@ function css(){
 
         .header {
             background-color: black;
-            margin-top: 4rem;
             padding-bottom: 3rem;
+            width: 100%;
+        }
+
+        img, picture {
+            width: 100%;
+            display: block;
         }
     `;
     var encabezadoDocumento = document.head;
