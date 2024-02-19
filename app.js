@@ -28,16 +28,48 @@ function header (){
 }
 
 function body (){
-    const main = document.createElement("main");
-    main.classList.add("contenedor", "seccion", "color-main");
+    const main = document.createElement("section");
+    main.classList.add("contenedor", "seccion");
+
+    let c = document.createElement("div");
+    c.classList.add("mensaje");
+    main.appendChild(c);
 
     let p = document.createElement("p");
+    p.classList.add("contenido-mensaje");
     p.innerHTML = "HOLA";
-    main.appendChild(p);
+    c.appendChild(p);
+
+    const main2 = document.createElement("section");
+    main2.classList.add("contenedor", "seccion2");
+
+    let c2 = document.createElement("div");
+    c2.classList.add("mensaje");
+    main2.appendChild(c2);
+
+    let p2 = document.createElement("p");
+    p2.classList.add("contenido-mensaje");
+    p2.innerHTML = "ADIOS";
+    c2.appendChild(p2);
 
 
     const body = document.body;
     body.appendChild(main);
+    body.appendChild(main2);
+
+    setTimeout(() => {
+        if (p.clientWidth > 600) {
+            p.classList.remove("mensaje");
+            p.classList.add("modo-grande");
+        }
+    }, 0);
+
+    setTimeout(() => {
+        if (p2.clientWidth > 600) {
+            p2.classList.remove("contenido-mensaje");
+            p2.classList.add("modo-grande");
+        }
+    }, 0);
 }
 
 function footer (){
@@ -66,6 +98,28 @@ function footer (){
 function css(){
     const estilo = document.createElement("style");
     estilo.innerHTML = `
+
+        .mensaje{
+            background-color: #1E90FF;
+            border-radius: 10px; 
+            padding: 5px; 
+            display: inline-block;
+        }
+
+        .modo-grande {
+            background-color: #1E90FF; /* Color de fondo del contenedor */
+            border-radius: 10px; 
+            padding: 5px;
+            max-width: 400px; 
+            word-wrap: break-word; 
+          }
+
+        .contenido-mensaje{
+            padding: 1rem;
+        }
+
+        
+
         .no-margen{
             margin: 0;
         }
@@ -96,13 +150,12 @@ function css(){
 
         .nombre {
             font-weight: normal;
-            color: white;
         }
 
         .header {
-            background-color: black;
             padding-bottom: 3rem;
             width: 100%;
+            border-bottom: 1px solid gray;
         }
 
         img, picture {
@@ -114,7 +167,6 @@ function css(){
             width: 3rem;
             margin-top: 0;
             margin-bottom: 2rem;
-            filter: invert(100%);
         }
 
         .dark-mode:hover {
@@ -137,14 +189,18 @@ function css(){
         }
 
         .seccion{
-            margin-top: calc(5rem / 2);
-            margin-bottom: calc(5rem / 2);
+            width: auto;
+            padding: 20px;
         }
 
-        .color-main{
-            background-color: black;
-            margin-top: 0;
+        .seccion2{
+            display:flex;
+            justify-content: flex-end;
+            width: auto;
+            padding: 20px;
         }
+
+        
     `;
     const encabezadoDocumento = document.head;
     encabezadoDocumento.appendChild(estilo);
