@@ -119,6 +119,10 @@ function css(){
         transform: translateY(-75%); 
     }
 
+    .enviar:hover {
+        cursor: pointer;
+    }
+
     .input-mensaje {
         display: flex;
         border-radius: 20px; 
