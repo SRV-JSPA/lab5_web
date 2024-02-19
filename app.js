@@ -1,5 +1,22 @@
+async function api() {
+    const apiResponse = await fetch("http://localhost:3009/messages");
+    const datos = await apiResponse.json();
 
-function header (){
+    const resultados = datos.map(info => ({
+        id: info.id,
+        user: info.username,
+        mensaje: info.message,
+        hora: info.created_at,
+    }));
+
+    return resultados;
+}
+
+// Llamamos a la función y asignamos el resultado a una variable
+const resultados = api();
+
+
+function header (nombreU){
 
     let header = document.createElement("div");
     header.classList.add("header");
@@ -14,7 +31,7 @@ function header (){
 
     let h1 = document.createElement("h1");
     h1.classList.add("nombre", "no-margen", "centrar-texto");
-    h1.innerHTML = "UVG Chat";
+    h1.innerHTML = nombreU;
     barra.appendChild(h1);
 
     let config = document.createElement("img");
@@ -27,7 +44,7 @@ function header (){
     body.appendChild(header);
 }
 
-function body (){
+function bodyA (mensajeA){
     const main = document.createElement("section");
     main.classList.add("contenedor", "seccion");
 
@@ -37,9 +54,26 @@ function body (){
 
     let p = document.createElement("p");
     p.classList.add("contenido-mensaje");
-    p.innerHTML = "HOLA";
+    p.innerHTML = mensajeA;
     c.appendChild(p);
 
+    
+
+
+    const body = document.body;
+    body.appendChild(main);
+    
+    setTimeout(() => {
+        if (p.clientWidth > 600) {
+            p.classList.remove("mensaje");
+            p.classList.add("modo-grande");
+        }
+    }, 0);
+
+    
+}
+
+function bodyP (mensajeP){
     const main2 = document.createElement("section");
     main2.classList.add("contenedor", "seccion2");
 
@@ -49,20 +83,11 @@ function body (){
 
     let p2 = document.createElement("p");
     p2.classList.add("contenido-mensaje");
-    p2.innerHTML = "ADIOS";
+    p2.innerHTML = mensajeP;
     c2.appendChild(p2);
 
-
     const body = document.body;
-    body.appendChild(main);
     body.appendChild(main2);
-
-    setTimeout(() => {
-        if (p.clientWidth > 600) {
-            p.classList.remove("mensaje");
-            p.classList.add("modo-grande");
-        }
-    }, 0);
 
     setTimeout(() => {
         if (p2.clientWidth > 600) {
@@ -70,6 +95,7 @@ function body (){
             p2.classList.add("modo-grande");
         }
     }, 0);
+
 }
 
 function mensaje (){
@@ -680,23 +706,28 @@ function info() {
     });
 }
 
-async function api (){
-    const api = await fetch("http://localhost:3009/messages");
-    const datos = await api.json();
-    return datos;
-}
-
-//  api().then((datos) => {
-//     const mensajes = datos.response[0];
-//  });
 
 
+resultados.then(resultado => {
+
+     let nombre = resultado.find(objeto => objeto.user !== "per22318");
+
+     header(nombre.user);
+
+    resultado.forEach(elemento => {
+
+        if(elemento.user == "per22318"){
+            bodyP(elemento.mensaje);
+        } else {
+            bodyA(elemento.mensaje);
+        }
+    });
+
+    mensaje();
+    css();
+    normalize();
+    darkMode();
+    info();
+});
 
 
-header();
-body();
-mensaje();
-css();
-normalize();
-darkMode();
-info();
