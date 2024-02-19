@@ -267,6 +267,10 @@ function css(){
             .enviar {
                 background-color: #ADFF2F;
             }
+
+            .mensaje-input {
+                background-color: #ccc;
+            }
         }
 
         
@@ -636,11 +640,12 @@ function normalize (){
 function darkMode (){
     const btn = document.querySelector(".dark-mode");
     //let isDarkMode = localStorage.getItem("isDarkMode") === "
-    const nombre = document.querySelector( ".nombre" );
     btn.addEventListener("click", () => {
         document.body.classList.toggle("oscuro");
     })
 }
+
+
 
 header();
 body();
