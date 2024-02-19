@@ -149,6 +149,7 @@ function css(){
     }
 
         .mensaje{
+            cursor: pointer;
             background-color: #1E90FF;
             border-radius: 10px; 
             padding: 5px; 
@@ -156,6 +157,7 @@ function css(){
         }
 
         .modo-grande {
+            cursor: pointer;
             background-color: #1E90FF; 
             border-radius: 10px; 
             padding: 5px;
@@ -271,6 +273,20 @@ function css(){
             .mensaje-input {
                 background-color: #ccc;
             }
+        }
+
+        .caja-info {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            height: 50%;
+            width: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff; 
+            padding: 20px; 
+            border-radius: 10px;
+            backdrop-filter: blur(100%);
         }
 
         
@@ -645,6 +661,33 @@ function darkMode (){
     })
 }
 
+function info() {
+    document.addEventListener("click", (event) => {
+        if (event.target.matches(".mensaje")) {
+            if (!document.querySelector(".caja-info")) {
+                const caja = document.createElement("div");
+                caja.classList.add("caja-info");
+                caja.textContent = "Información";
+                document.body.appendChild(caja);
+                
+               
+                document.body.classList.add("blur-background");
+            } else {
+                document.querySelector(".caja-info").remove();
+                
+                
+                document.body.classList.remove("blur-background");
+            }
+        } else {
+            if (document.querySelector(".caja-info")) {
+                document.querySelector(".caja-info").remove();
+                document.body.classList.remove("blur-background");
+            }
+        }
+    });
+}
+
+
 
 
 header();
@@ -653,3 +696,4 @@ mensaje();
 css();
 normalize();
 darkMode();
+info();
