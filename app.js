@@ -72,28 +72,7 @@ function body (){
     }, 0);
 }
 
-function footer (){
-    let footer = document.createElement("footer");
-    footer.classList.add("footer");
 
-    let contenedor = document.createElement("div");
-    contenedor.classList.add("contenedor", "contenedor-footer");
-    header.appendChild(contenedor);
-
-
-    let h1 = document.createElement("h1");
-    h1.classList.add("nombre", "no-margen", "centrar-texto");
-    h1.innerHTML = "UVG Chat";
-    contenedor.appendChild(h1);
-
-    let parrafo = document.createElement("p");
-    parrafo.classList.add("copyright");
-    parrafo.innerText = "Todos los derechos reservados &copy;";
-    contenedor.appendChild(parrafo);
-
-    let body = document.body;
-    body.appendChild(footer);
-}
 
 function css(){
     const estilo = document.createElement("style");
@@ -107,7 +86,7 @@ function css(){
         }
 
         .modo-grande {
-            background-color: #1E90FF; /* Color de fondo del contenedor */
+            background-color: #1E90FF; 
             border-radius: 10px; 
             padding: 5px;
             max-width: 400px; 
@@ -169,6 +148,7 @@ function css(){
             margin-bottom: 2rem;
         }
 
+
         .dark-mode:hover {
             cursor:pointer;
         }
@@ -200,12 +180,42 @@ function css(){
             padding: 20px;
         }
 
+        .oscuro {
+            background-color: black;
+
+            .dark-mode{
+                filter: invert(100%);
+            }
+
+            .nombre {
+                color: white;
+            }
+
+            .mensaje{
+                background-color: #ADFF2F;
+            }
+
+            .modo-grande {
+                background-color: #ADFF2F;
+            }
+        }
+
         
     `;
     const encabezadoDocumento = document.head;
     encabezadoDocumento.appendChild(estilo);
 }
 
+function darkMode (){
+    const btn = document.querySelector(".dark-mode");
+    //let isDarkMode = localStorage.getItem("isDarkMode") === "
+    const nombre = document.querySelector( ".nombre" );
+    btn.addEventListener("click", () => {
+        document.body.classList.toggle("oscuro");
+    })
+}
+
 header();
 body();
 css();
+darkMode();
