@@ -669,23 +669,26 @@ function info() {
                 caja.classList.add("caja-info");
                 caja.textContent = "Información";
                 document.body.appendChild(caja);
-                
-               
-                document.body.classList.add("blur-background");
             } else {
                 document.querySelector(".caja-info").remove();
-                
-                
-                document.body.classList.remove("blur-background");
             }
         } else {
             if (document.querySelector(".caja-info")) {
                 document.querySelector(".caja-info").remove();
-                document.body.classList.remove("blur-background");
             }
         }
     });
 }
+
+async function api (){
+    const api = await fetch("http://localhost:3009/messages");
+    const datos = await api.json();
+    return datos;
+}
+
+//  api().then((datos) => {
+//     const mensajes = datos.response[0];
+//  });
 
 
 
