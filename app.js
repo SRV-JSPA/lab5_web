@@ -55,7 +55,7 @@ function header (){
     barra.appendChild(h1);
 
     let config = document.createElement("img");
-    config.src="dark-mode.svg";
+    config.src="http://arpanetos.lol/lab5/22318/dark-mode.svg";
     config.style.width="3rem";
     config.style.marginTop="0"
     config.style.marginBottom="2rem";
@@ -224,7 +224,7 @@ function mensaje (){
     div.appendChild(inputMensaje);
 
     let enviar = document.createElement("img");
-    enviar.src="send_120237.svg";
+    enviar.src="http://arpanetos.lol/lab5/22318/send_120237.svg";
     enviar.classList.add("enviar");
     enviar.style.backgroundColor = '#1E90FF';
     enviar.style.borderRadius='50%';
