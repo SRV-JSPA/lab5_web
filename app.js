@@ -15,34 +15,11 @@ async function api() {
 
 const resultados = api();
 
-function globales (){
-
-    const imgsAndPictures = document.querySelectorAll("img, picture");
- // Apply styles to each 'img' and 'picture' element
-    imgsAndPictures.forEach(imgOrPicture => {
-        imgOrPicture.style.width = "100%";
-       mgOrPicture.style.display = "block";
-    });
 
 
-
-    // Set font-size and box-sizing for the HTML element
-    document.documentElement.style.fontSize = "62.5%";
-    document.documentElement.style.boxSizing = "border-box";
-
-    // Get all elements that should have box-sizing: inherit; applied to them
-    const elementsToInheritBoxSizing = document.querySelectorAll("html, :before, *:after");
-
-    // Apply box-sizing: inherit; to those elements
-    elementsToInheritBoxSizing.forEach(element => {
-    element.style.boxSizing = "inherit";
-    });
-    
-    
-}
 
 function header (){
-
+    let ancho_p = window.innerWidth;
     let header = document.createElement("div");
     header.style.paddingBottom="3rem";
     header.style.width="100%";
@@ -52,14 +29,21 @@ function header (){
     let contenedor = document.createElement("div");
     contenedor.style.width="min(90%, 120rem)";
     contenedor.style.margin = "0 auto";
+    if(ancho_p <= 768){
+        contenedor.style.display = "column";
+        contenedor.style.alignItems = "center";
+    }
     contenedor.classList.add("contenedor");
     header.appendChild(contenedor);
 
     let barra = document.createElement("div");
     barra.style.paddingTop="4rem";
+    barra.style.display = "flex";
+    barra.style.justifyContent = "space-between";
+    barra.style.alignItems = "center";
     barra.classList.add("barra");
     contenedor.appendChild(barra);
-
+    
     let h1 = document.createElement("h1");
     h1.style.paddingBottom="2rem";
     h1.style.fontWeight= "normal";
@@ -74,6 +58,7 @@ function header (){
     config.style.width="3rem";
     config.style.marginTop="0"
     config.style.marginBottom="2rem";
+    config.style.display = "block";
     config.addEventListener('mouseenter', function() {
         this.style.cursor = 'pointer';
     });
@@ -82,7 +67,6 @@ function header (){
     });
     config.classList.add("dark-mode");
     barra.appendChild(config);
-
 
     let body = document.body;
     body.appendChild(header);
@@ -188,6 +172,8 @@ function mensaje (){
     div.style.borderRadius = "20px";
     div.style.overflow = "hidden";
     div.style.width = "95%";
+    div.style.justifyContent = "center";
+    div.style.alignContent = "center";
     div.classList.add("input-mensaje");
     barra_mensaje.appendChild(div);
 
@@ -196,6 +182,7 @@ function mensaje (){
     inputMensaje.style.border="2px solid #ccc";
     inputMensaje.style.padding = "10px";
     inputMensaje.style.borderRadius= "20px";
+    inputMensaje.style.marginRight = "2rem"
     inputMensaje.style.outline = "none";
     inputMensaje.classList.add("mensaje-input");
     inputMensaje.placeholder = "Escribe tu mensaje aquí...";
@@ -206,13 +193,8 @@ function mensaje (){
     enviar.classList.add("enviar");
     enviar.style.backgroundColor = '#1E90FF';
     enviar.style.borderRadius='50%';
-    enviar.style.width = "3rem";
-    enviar.style.marginTop ="0";
-    enviar.style.marginBottom = "2rem";
-    enviar.style.position = "absolute";
-    enviar.style.right = "40px";
-    enviar.style.top = "50%";
-    enviar.style.transform = "translateY(-75%)";
+    enviar.style.width = "4rem";
+    enviar.style.margin = "0 auto";
     enviar.addEventListener('mouseenter', function() {
         this.style.cursor = 'pointer';
     });
@@ -220,77 +202,16 @@ function mensaje (){
         this.style.cursor = 'auto';
     });
     enviar.classList.add("enviar");
-    barra_mensaje.appendChild(enviar);
+    div.appendChild(enviar);
 
     const body = document.body;
     body.appendChild(barra_mensaje);
 }
 
-function css(){
-    const estilo = document.createElement("style");
-    estilo.innerHTML = `
-
-    html{
-        font-size: 62.5%;
-        box-sizing: border-box; 
-    }
-    ,:before, *:after{
-        box-sizing: inherit;
-    }
-
-    
-
-    
-
-    
-
-   
-
-    
-
-        
-
-        
-
-        
-        
-
-       
-        
-
-        @media (min-width: 768px) {
-            .barra{
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-        }
-
-        
-
-        
-
-            img, picture {
-                width: 100%;
-                display: block;
-            }
-
-    
-
-        
-
-        
-
-        
-
-        
-
-        
-
-        
-    `;
-    const encabezadoDocumento = document.head;
-    encabezadoDocumento.appendChild(estilo);
+function globales(){
+    var htmlElement = document.documentElement;
+    htmlElement.style.fontSize = "62.5%";
+    htmlElement.style.boxSizing = "border-box";
 }
 
 
@@ -340,7 +261,7 @@ resultados.then(resultado => {
     });
     
     mensaje();
-    css();
+    globales();
     darkMode();
 });
 
