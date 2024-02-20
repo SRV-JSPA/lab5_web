@@ -15,15 +15,16 @@ async function api() {
 
 const resultados = api();
 
-
-
-
 function header (){
     let ancho_p = window.innerWidth;
     let header = document.createElement("div");
     header.style.paddingBottom="3rem";
+    header.style.margin = "0";
     header.style.width="100%";
+    header.style.position = "fixed";
+    header.style.top = "0";
     header.style.borderBottom="1px solid gray";
+    header.style.backgroundColor = "white";
     header.classList.add("header");
 
     let contenedor = document.createElement("div");
@@ -69,10 +70,10 @@ function header (){
     barra.appendChild(config);
 
     let body = document.body;
-    body.appendChild(header);
+    body.insertBefore(header, body.firstChild);
 }
 
-function bodyA (mensajeA){
+function bodyA (mensajeA, usuario, hora){
     const main = document.createElement("section");
     main.style.width="min(90%, 120rem)";
     main.style.margin = "0 auto";
@@ -89,7 +90,14 @@ function bodyA (mensajeA){
     c.classList.add("mensajeA");
     main.appendChild(c);
 
-    
+    let p1 = document.createElement("p");
+    p1.classList.add("contenido-mensaje");
+    p1.style.padding= "1rem";
+    p1.style.top = "0"; 
+    p1.style.left = "0";
+    p1.style.fontWeight = "bold";
+    p1.innerHTML = usuario;
+    c.appendChild(p1);
 
     let p = document.createElement("p");
     p.classList.add("contenido-mensaje");
@@ -97,10 +105,18 @@ function bodyA (mensajeA){
     p.innerHTML = mensajeA;
     c.appendChild(p);
 
+    let p2 = document.createElement("p");
+    p2.classList.add("contenido-mensaje");
+    p2.style.padding= "1rem";
+    p2.style.top = "0"; 
+    p2.style.left = "0";
+    p2.style.fontWeight = "bold";
+    p2.innerHTML = hora;
+    c.appendChild(p2);
+
     
     const body = document.body;
-    body.appendChild(main);
-    
+    body.firstElementChild.insertAdjacentElement('afterend', main);
     setTimeout(() => {
         if (p.clientWidth > 600) {
             p.style.cursor = "pointer";
@@ -115,7 +131,7 @@ function bodyA (mensajeA){
     
 }
 
-function bodyP (mensajeP){
+function bodyP (mensajeP, tiempo){
     const main2 = document.createElement("section");
     main2.style.width="min(90%, 120rem)";
     main2.style.margin = "0 auto";
@@ -134,14 +150,32 @@ function bodyP (mensajeP){
     c2.classList.add("mensaje");
     main2.appendChild(c2);  
 
+    let p3 = document.createElement("p");
+    p3.classList.add("contenido-mensaje");
+    p3.style.padding= "1rem";
+    p3.style.top = "0"; 
+    p3.style.left = "0";
+    p3.style.fontWeight = "bold";
+    p3.innerHTML = "yo";
+    c2.appendChild(p3);
+
     let p2 = document.createElement("p");
     p2.classList.add("contenido-mensaje");
     p2.style.padding= "1rem";
     p2.innerHTML = mensajeP;
     c2.appendChild(p2);
 
+    let p4 = document.createElement("p");
+    p4.classList.add("contenido-mensaje");
+    p4.style.padding= "1rem";
+    p4.style.top = "0"; 
+    p4.style.left = "0";
+    p4.style.fontWeight = "bold";
+    p4.innerHTML = tiempo;
+    c2.appendChild(p4);
+    
     const body = document.body;
-    body.appendChild(main2);
+    body.firstElementChild.insertAdjacentElement('afterend', main2);
 
     setTimeout(() => {
         if (p2.clientWidth > 600) {
@@ -165,6 +199,7 @@ function mensaje (){
     barra_mensaje.style.height = "50px";
     barra_mensaje.style.padding = "10px";
     barra_mensaje.style.borderTop = "1px solid #ccc";
+    barra_mensaje.style.backgroundColor = "white";
     barra_mensaje.classList.add("barra-mensaje");
 
     const div = document.createElement("div");
@@ -203,10 +238,58 @@ function mensaje (){
     });
     enviar.classList.add("enviar");
     div.appendChild(enviar);
+    enviar.addEventListener('click', function () {
+        enviarMensaje(inputMensaje);
+    });
+
+    
+    inputMensaje.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); 
+            enviarMensaje(inputMensaje);
+        }
+    });
 
     const body = document.body;
     body.appendChild(barra_mensaje);
 }
+
+function enviarMensaje(inputMensaje) {
+    let mensaje = inputMensaje.value;
+
+    if (mensaje.length > 140) {
+        alert("El mensaje es muy grande.");
+        return; 
+    }
+
+    let mensajeJSON = {
+        username: "per22318",
+        message: mensaje,
+        created_at: "NOW()"
+    };
+
+    fetch('http://localhost:3009/messages', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mensajeJSON)
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Mensaje enviado con éxito');
+            } else {
+                console.error('Error al enviar el mensaje');
+            }
+        })
+        .catch(error => {
+            console.error('Error de red:', error);
+        });
+
+    inputMensaje.value = '';
+}
+   
+
 
 function globales(){
     var htmlElement = document.documentElement;
@@ -222,6 +305,9 @@ function darkMode (){
     let mensajeA = document.querySelector(".mensajeA");
     let enviar = document.querySelector(".enviar");
     let mensaje_input = document.querySelector(".mensaje-input");
+    let barra_mensaje = document.querySelector(".barra-mensaje");
+    let header = document.querySelector(".header");
+
     let isDarkMode = false;
     //let isDarkMode = localStorage.getItem("isDarkMode") === "
     btn.addEventListener("click", () => {
@@ -233,6 +319,9 @@ function darkMode (){
             // mensajeA.style.backgroundColor = "#1E90FF";
             enviar.style.backgroundColor = "#1E90FF";
             mensaje_input.style.backgroundColor = "";
+            barra_mensaje.style.backgroundColor = "white";
+            header.style.backgroundColor = "white";
+            
             isDarkMode = false;
         } else {
             document.body.style.backgroundColor = "black";
@@ -242,6 +331,9 @@ function darkMode (){
             // mensajeA.style.backgroundColor = "#ADFF2F";
             enviar.style.backgroundColor = "#ADFF2F";
             mensaje_input.style.backgroundColor = "#ccc";
+            barra_mensaje.style.backgroundColor = "black";
+            header.style.backgroundColor = "black";
+           
             isDarkMode = true;
         }
     })
@@ -254,9 +346,9 @@ resultados.then(resultado => {
     resultado.forEach(elemento => {
 
         if(elemento.user == "per22318"){
-            bodyP(elemento.mensaje);
+            bodyP(elemento.mensaje, elemento.hora);
         } else {
-            bodyA(elemento.mensaje);
+            bodyA(elemento.mensaje, elemento.user, elemento.hora);
         }
     });
     
