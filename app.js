@@ -55,7 +55,7 @@ function header (){
     barra.appendChild(h1);
 
     let config = document.createElement("img");
-    config.src="/images/dark-mode.svg";
+    config.src="dark-mode.svg";
     config.style.width="3rem";
     config.style.marginTop="0"
     config.style.marginBottom="2rem";
@@ -224,7 +224,7 @@ function mensaje (){
     div.appendChild(inputMensaje);
 
     let enviar = document.createElement("img");
-    enviar.src="/images/send_120237.svg";
+    enviar.src="send_120237.svg";
     enviar.classList.add("enviar");
     enviar.style.backgroundColor = '#1E90FF';
     enviar.style.borderRadius='50%';
