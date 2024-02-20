@@ -55,7 +55,7 @@ function header (){
     barra.appendChild(h1);
 
     let config = document.createElement("img");
-    config.src="http://arpanetos.lol/lab5/22318/dark-mode.svg";
+    config.src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.iconfinder.com%2Ficons%2F110827%2Fmoon_icon&psig=AOvVaw3fPnhXNHz2S5hdxqzsl-a5&ust=1708557239366000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCKC7u-yFu4QDFQAAAAAdAAAAABAE";
     config.style.width="3rem";
     config.style.marginTop="0"
     config.style.marginBottom="2rem";
