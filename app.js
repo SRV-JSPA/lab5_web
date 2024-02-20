@@ -1,5 +1,5 @@
 async function api() {
-    const apiResponse = await fetch("http://localhost:3009/messages");
+    const apiResponse = await fetch("https://chat.arpanetos.lol/messages");
     const datos = await apiResponse.json();
 
     const resultados = datos.map(info => ({
@@ -256,6 +256,8 @@ function mensaje (){
 
 function enviarMensaje(inputMensaje) {
     let mensaje = inputMensaje.value;
+    let hora = new Date();
+    let horaA = hora.toLocaleTimeString();
 
     if (mensaje.length > 140) {
         alert("El mensaje es muy grande.");
@@ -265,10 +267,10 @@ function enviarMensaje(inputMensaje) {
     let mensajeJSON = {
         username: "per22318",
         message: mensaje,
-        created_at: "NOW()"
+        created_at: horaA
     };
 
-    fetch('http://localhost:3009/messages', {
+    fetch('https://chat.arpanetos.lol/messages', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
